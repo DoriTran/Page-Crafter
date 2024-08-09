@@ -1,0 +1,6 @@
+.heading {
+  max-width: calc(100vw - 540px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

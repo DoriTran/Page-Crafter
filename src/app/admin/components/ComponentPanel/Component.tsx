@@ -4,6 +4,7 @@ import { ApIcon } from "@/components";
 import { Paper } from "@mui/material";
 import { FC } from "react";
 import styles from "./ComponentPanel.module.scss";
+import { useAdminContext } from "../AdminContext/AdminContext";
 
 interface ComponentProps {
   type: string;
@@ -11,8 +12,10 @@ interface ComponentProps {
 }
 
 const Component: FC<ComponentProps> = ({ type, icon }) => {
+  const { setDragging } = useAdminContext();
   const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setData("type", type);
+    setDragging(type);
   };
 
   return (

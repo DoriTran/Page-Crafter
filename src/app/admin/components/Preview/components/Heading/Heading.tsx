@@ -1,5 +1,6 @@
 import { FC } from "react";
 import ComponentProps from "../type";
+import styles from "./Heading.module.scss";
 
 interface HeadingProps extends ComponentProps {
   heading?: "h1" | "h2" | "h3" | "h4" | "h5";
@@ -18,7 +19,11 @@ export const defaultHeading = {
 const Heading: FC<HeadingProps> = ({ heading, text, onClick }) => {
   const Tag = heading || "h1";
 
-  return <Tag onClick={onClick}>{text || `Heading - ${Tag}`}</Tag>;
+  return (
+    <Tag className={styles.heading} onClick={onClick}>
+      {text || `Heading - ${Tag}`}
+    </Tag>
+  );
 };
 
 export default Heading;

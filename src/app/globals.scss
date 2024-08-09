@@ -28,7 +28,7 @@ $bold: 700;
 // Others global styles
 $headerHeight: 70px;
 $bodyHeight: calc(100vh - $headerHeight);
-$previewWidth: calc(100vw - 200px - 300px);
+$previewWidth: calc(100vw - 200px - 320px);
 
 // Mixing styles
 @mixin flexRow {

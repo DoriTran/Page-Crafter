@@ -16,7 +16,7 @@ import styles from "./Header.module.scss";
 import { useAdminContext } from "../AdminContext/AdminContext";
 
 const Header = () => {
-  const { mousePosition, instances, selectedId, isDragging } = useAdminContext();
+  const { mousePosition, instances, dragging } = useAdminContext();
 
   return (
     <div className={styles.header}>
@@ -27,10 +27,7 @@ const Header = () => {
       </div>
       <div className={styles.editorInfomation}>
         <ApChip icon={{ icon: faArrowPointer }} label={`x: ${mousePosition.x} , y: ${mousePosition.y}`} />
-        <ApChip
-          icon={{ icon: faHandBackFist }}
-          label={`Dragging: ${isDragging ? instances[selectedId].component : "None"}`}
-        />
+        <ApChip icon={{ icon: faHandBackFist }} label={`Dragging: ${dragging}`} />
         <ApChip icon={{ icon: faLayerGroup }} label={`Instances: ${Object.keys(instances).length}`} />
       </div>
       <div className={styles.wrapper}>

@@ -15,10 +15,10 @@ const AdminContext = createContext<{
   setInstances: (instances: InstanceData) => void;
   selectedId: string;
   setSelectedId: (selectedId: string) => void;
-  isDragging: boolean;
-  setIsDragging: (isDragging: boolean) => void;
+  dragging: string;
+  setDragging: (dragging: string) => void;
   createNewInstance: (path: string[], type: string) => void;
-  setInstanceById: (instanceId: string, data: Instance) => void;
+  setInstanceById: (data: Instance) => void;
 }>({
   mousePosition: { x: 0, y: 0 },
   setMousePosition: () => {},
@@ -30,8 +30,8 @@ const AdminContext = createContext<{
   setSelectedId: () => {},
   createNewInstance: () => {},
   setInstanceById: () => {},
-  isDragging: false,
-  setIsDragging: () => {},
+  dragging: "None",
+  setDragging: () => {},
 });
 
 // Custom hook to use the context
@@ -45,7 +45,7 @@ const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [mappedIds, setMappedIds] = useState<MappedId>({ global: {} });
   const [instances, setInstances] = useState<InstanceData>({});
   const [selectedId, setSelectedId] = useState<string>("");
-  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [dragging, setDragging] = useState<string>("None");
 
   const value = useMemo(() => {
     const createNewInstance = (path: string[], type: string) => {
@@ -58,8 +58,8 @@ const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setSelectedId(id);
     };
 
-    const setInstanceById = (instanceId: string, data: Instance) => {
-      setInstances({ ...instances, [instanceId]: data });
+    const setInstanceById = (data: Instance) => {
+      setInstances({ ...instances, [data.id || ""]: data });
     };
 
     return {
@@ -71,12 +71,12 @@ const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setInstances,
       selectedId,
       setSelectedId,
-      isDragging,
-      setIsDragging,
+      dragging,
+      setDragging,
       createNewInstance,
       setInstanceById,
     };
-  }, [mousePosition, mappedIds, instances, selectedId, isDragging]);
+  }, [mousePosition, mappedIds, instances, selectedId, dragging]);
 
   return <AdminContext.Provider value={value}>{children}</AdminContext.Provider>;
 };
