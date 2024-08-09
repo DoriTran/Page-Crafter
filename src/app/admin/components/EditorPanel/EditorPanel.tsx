@@ -1,5 +1,5 @@
 import { Instance } from "@/actions/type";
-import { ApButton, ApDivider, ApInput } from "@/components";
+import { ApButton, ApInput } from "@/components";
 import { FC } from "react";
 import styles from "./EditorPanel.module.scss";
 
@@ -12,6 +12,11 @@ const EditorPanel: FC<EditorPanelProps> = ({ selectedInstance, setInstanceById }
   return (
     <div className={styles.rightPanel}>
       <div className={styles.editor}>
+        {!selectedInstance && (
+          <div className={styles.selectAnInstance}>
+            Select an instance <br /> to start editing!
+          </div>
+        )}
         {selectedInstance &&
           Object.keys(selectedInstance.props).map((prop) => (
             <ApInput
@@ -28,8 +33,9 @@ const EditorPanel: FC<EditorPanelProps> = ({ selectedInstance, setInstanceById }
           ))}
       </div>
       <div className={styles.viewAction}>
-        <ApDivider />
-        <ApButton>View</ApButton>
+        <ApButton sx={{ width: "80%" }} onClick={() => window.open("/consumer", "_blank")}>
+          View
+        </ApButton>
       </div>
     </div>
   );

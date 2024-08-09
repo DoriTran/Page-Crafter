@@ -9,9 +9,13 @@ interface ComponentProps {
 }
 
 const Component: FC<ComponentProps> = ({ type, icon }) => {
+  const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+    event.dataTransfer.setData("type", type);
+  };
+
   return (
-    <Paper className={styles.wrapper} elevation={3}>
-      <ApIcon icon={icon} />
+    <Paper className={styles.wrapper} elevation={3} draggable onDragStart={handleDragStart}>
+      <ApIcon icon={icon} color="#D8AE7E" size={35} />
       <div className={styles.type}>{type}</div>
     </Paper>
   );

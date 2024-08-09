@@ -2,15 +2,15 @@
 export const chipStyle: object = {
   position: "relative",
   backgroundColor: "white",
-  border: "1px solid black",
+  border: "1px solid #D8AE7E",
   color: "black",
 
   "&&:hover": {
-    backgroundColor: "grey",
+    backgroundColor: "#FFE0B5",
   },
 
   "&.MuiButtonBase-root.Mui-focusVisible": {
-    backgroundColor: "grey",
+    backgroundColor: "#FFE0B5",
   },
 };
 

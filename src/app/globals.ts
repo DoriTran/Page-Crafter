@@ -8,20 +8,6 @@ export interface GlobalStyle {
 
 const global: GlobalStyle = {
   color: {
-    // Primary color
-    primary: "lavenderblush",
-    primaryDark: "lavenderblush",
-    primaryLight: "lavenderblush",
-    // Secondary color
-    secondary: "lavenderblush",
-    secondaryDark: "lavenderblush",
-    secondaryLight: "lavenderblush",
-    // Sidebar & background color
-    sidebar: "lavenderblush",
-    background: "lavenderblush",
-    // Text color
-    text: "lavenderblush",
-    textContrast: "lavenderblush",
     // Other color
     green: "#4CAF50",
     red: "#F44336",

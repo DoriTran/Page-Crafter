@@ -48,7 +48,7 @@ const ApChip: FC<ApChipProps> = ({
 
   // Style calculations
   const iconColor = useMemo<string>(() => {
-    const contrastColor = color || "grey";
+    const contrastColor = color || "#D8AE7E";
     if (filled) return hover ? contrastColor : "white";
     return contrastColor;
   }, [filled, color, hover]);
@@ -101,7 +101,7 @@ const ApChip: FC<ApChipProps> = ({
               minWidth: hover ? (small ? "20px" : "29px") : 0,
               width: hover ? "auto" : 0,
               opacity: hover ? 1 : 0,
-              ...(color && { backgroundColor: "grey" }),
+              ...(color && { backgroundColor: "#FFF2D7" }),
               ...style.hoverIcons,
             }}
           />
@@ -113,22 +113,22 @@ const ApChip: FC<ApChipProps> = ({
         ...chipStyle,
 
         ...(color && {
-          backgroundColor: "grey",
-          borderColor: "grey",
-          color: "grey",
+          backgroundColor: "#FFE0B5",
+          borderColor: "#FFE0B5",
+          color: "#FFE0B5",
 
           "&&:hover": {
-            backgroundColor: "grey",
+            backgroundColor: "#FFE0B5",
           },
         }),
 
         ...(filled && {
           border: "none",
-          backgroundColor: color ? "grey" : "black",
-          color: hover ? (color ? "grey" : "black") : "white",
+          backgroundColor: color ? "#FFE0B5" : "#D8AE7E",
+          color: hover ? (color ? "#FFE0B5" : "#D8AE7E") : "white",
 
           "&&:hover": {
-            backgroundColor: color ? "grey" : "black",
+            backgroundColor: color ? "#FFE0B5" : "#D8AE7E",
           },
         }),
 

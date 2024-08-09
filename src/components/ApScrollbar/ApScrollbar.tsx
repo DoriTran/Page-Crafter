@@ -25,7 +25,7 @@ const AppScrollbar: FC<AppScrollbarProps> = ({
   hidden,
   horizontal,
   vertical,
-  size = 8,
+  size = 4,
   color,
   style,
   className,
@@ -34,7 +34,7 @@ const AppScrollbar: FC<AppScrollbarProps> = ({
 }) => {
   const scrollbarRef = useRef(null);
   const scrollbarColor = useMemo<string>(() => {
-    return color || "black";
+    return color || "#D8AE7E";
   }, [color]);
 
   return (
