@@ -1,0 +1,11 @@
+.preventDefaultAppearance {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.preventDefaultAppearance::-webkit-inner-spin-button,
+.preventDefaultAppearance::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

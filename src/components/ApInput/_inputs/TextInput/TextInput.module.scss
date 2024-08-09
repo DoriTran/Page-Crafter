@@ -1,0 +1,41 @@
+@import "@/app/styles/globals.scss";
+
+.input {
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid var(--secondary);
+  padding: 0 10px;
+  margin: 0;
+  color: var(--primary-dark);
+  font-size: $large;
+}
+
+.input:focus {
+  outline: var(--secondary-dark) solid 1px;
+}
+
+.correct {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.correct:focus {
+  outline-color: var(--green);
+}
+
+.error {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.error:focus {
+  outline-color: var(--red);
+}
+
+.inputWithStartAdornment {
+  padding-left: 45px;
+}
+
+.inputWithEndAdornment {
+  padding-right: 45px;
+}

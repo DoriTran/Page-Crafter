@@ -1,0 +1,14 @@
+@import "@/app/styles/globals.scss";
+
+.container {
+  @include flexCol;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2px;
+
+  .label {
+    font-size: $middle;
+    font-weight: $semibold;
+    padding-left: 8px;
+  }
+}

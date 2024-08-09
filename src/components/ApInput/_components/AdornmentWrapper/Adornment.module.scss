@@ -1,0 +1,27 @@
+@import "@/app/styles/globals.scss";
+
+@mixin adornment {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 45px;
+  @include flexRow;
+}
+
+.wrapper {
+  position: relative;
+
+  .startAdornment {
+    @include adornment;
+    left: 0px;
+  }
+
+  .endAdornment {
+    @include adornment;
+    right: 0px;
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+}

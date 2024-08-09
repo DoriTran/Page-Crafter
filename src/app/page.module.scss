@@ -1,0 +1,7 @@
+@import "@/app/styles/globals.scss";
+
+.page {
+  height: 100vh;
+  @include flexRow;
+  background-color: aliceblue;
+}
