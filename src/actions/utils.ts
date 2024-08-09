@@ -1,6 +1,6 @@
-import { Container, InstanceData, MappedId } from "./type";
+import { Container, InstanceData, MappedIds } from "./type";
 
-export const mappingContainer = (map: MappedId, data: InstanceData, currentId: string = ""): Container => {
+export const mappingContainer = (map: MappedIds, data: InstanceData, currentId: string = ""): Container => {
   if (currentId === "") return mappingContainer(map.global, data, "global");
   const result: Container = (data?.[currentId] as Container) || {
     id: currentId,

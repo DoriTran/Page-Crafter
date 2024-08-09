@@ -20,6 +20,11 @@ export interface InstanceData {
 }
 
 // Object of id and its component ids in recursive way
-export interface MappedId {
-  [key: string]: MappedId;
+export interface MappedIds {
+  [key: string]: MappedIds;
+}
+
+export interface Action {
+  instances: InstanceData;
+  mappedIds?: MappedIds;
 }

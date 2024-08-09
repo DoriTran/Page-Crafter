@@ -1,7 +1,7 @@
 import store from "store2";
-import { InstanceData, MappedId } from "./type";
+import { InstanceData, MappedIds } from "./type";
 
-export async function getSavedMappedIds(): Promise<MappedId> {
+export async function getSavedMappedIds(): Promise<MappedIds> {
   const mappedId = store.get("mappedId") || { global: {} };
   return mappedId;
 }

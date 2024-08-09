@@ -16,14 +16,14 @@ import styles from "./Header.module.scss";
 import { useAdminContext } from "../AdminContext/AdminContext";
 
 const Header = () => {
-  const { mousePosition, instances, dragging } = useAdminContext();
+  const { mousePosition, instances, dragging, canUndo, canRedo, undo, redo } = useAdminContext();
 
   return (
     <div className={styles.header}>
       <div className={clsx(styles.wrapper, styles.left)}>
         <ApButton startIcon={<ApIcon icon={faSave} />}>Save</ApButton>
-        <ApButton icon={faUndo} />
-        <ApButton icon={faRedo} />
+        <ApButton disabled={!canUndo ? true : undefined} icon={faUndo} onClick={() => undo()} />
+        <ApButton disabled={!canRedo ? true : undefined} icon={faRedo} onClick={() => redo()} />
       </div>
       <div className={styles.editorInfomation}>
         <ApChip icon={{ icon: faArrowPointer }} label={`x: ${mousePosition.x} , y: ${mousePosition.y}`} />

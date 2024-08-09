@@ -5,11 +5,12 @@ import ApIcon from "../ApIcon/ApIcon";
 interface ApButtonProps {
   icon?: any;
   iconProps?: { [key: string]: any };
+  disabled?: boolean;
   children?: React.ReactNode;
   [key: string]: any;
 }
 
-const ApButton: FC<ApButtonProps> = ({ icon, iconProps, children, ...restButtonProps }) => {
+const ApButton: FC<ApButtonProps> = ({ icon, iconProps, disabled, children, ...restButtonProps }) => {
   if (!icon)
     return (
       <Button
@@ -23,13 +24,19 @@ const ApButton: FC<ApButtonProps> = ({ icon, iconProps, children, ...restButtonP
           color: "#000", // Text color (optional)
           ...restButtonProps.sx,
         }}
+        disabled={disabled}
       >
         {children}
       </Button>
     );
   return (
-    <IconButton {...restButtonProps}>
-      <ApIcon icon={icon} size={iconProps?.size || "1.5rem"} {...iconProps} />
+    <IconButton disabled={disabled} {...restButtonProps}>
+      <ApIcon
+        icon={icon}
+        size={iconProps?.size || "1.5rem"}
+        color={disabled ? "#a4a4a4" : "black"}
+        {...iconProps}
+      />
     </IconButton>
   );
 };
