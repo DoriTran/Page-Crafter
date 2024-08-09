@@ -1,3 +1,5 @@
+"use client";
+
 import { ApButton, ApChip, ApIcon } from "@/components";
 import {
   faArrowPointer,
@@ -9,16 +11,13 @@ import {
   faSave,
   faUndo,
 } from "@fortawesome/free-solid-svg-icons";
-import { FC } from "react";
 import clsx from "clsx";
 import styles from "./Header.module.scss";
-import { Position } from "../Preview/Preview";
+import { useAdminContext } from "../AdminContext/AdminContext";
 
-interface HeaderProps {
-  mousePosition: Position;
-}
+const Header = () => {
+  const { mousePosition, instances, selectedId, isDragging } = useAdminContext();
 
-const Header: FC<HeaderProps> = ({ mousePosition }) => {
   return (
     <div className={styles.header}>
       <div className={clsx(styles.wrapper, styles.left)}>
@@ -28,8 +27,11 @@ const Header: FC<HeaderProps> = ({ mousePosition }) => {
       </div>
       <div className={styles.editorInfomation}>
         <ApChip icon={{ icon: faArrowPointer }} label={`x: ${mousePosition.x} , y: ${mousePosition.y}`} />
-        <ApChip icon={{ icon: faHandBackFist }} label="Dragging: None" />
-        <ApChip icon={{ icon: faLayerGroup }} label="Instances: 3" />
+        <ApChip
+          icon={{ icon: faHandBackFist }}
+          label={`Dragging: ${isDragging ? instances[selectedId].component : "None"}`}
+        />
+        <ApChip icon={{ icon: faLayerGroup }} label={`Instances: ${Object.keys(instances).length}`} />
       </div>
       <div className={styles.wrapper}>
         <ApButton startIcon={<ApIcon icon={faFileArrowUp} />}>Import</ApButton>

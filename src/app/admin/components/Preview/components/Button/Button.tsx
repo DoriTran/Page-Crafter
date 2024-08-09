@@ -1,14 +1,33 @@
 /* eslint-disable no-alert */
+
+"use client";
+
 import { ApButton } from "@/components";
 import { FC } from "react";
+import { usePathname } from "next/navigation";
+import ComponentProps from "../type";
 
-interface ButtonProps {
+interface ButtonProps extends ComponentProps {
   text?: string;
   alertMessage?: string;
 }
 
-const Button: FC<ButtonProps> = ({ text, alertMessage }) => {
-  return <ApButton onClick={() => window.alert(alertMessage)}>{text}</ApButton>;
+export const defaultButton = {
+  component: "Button",
+  props: {
+    text: "",
+    alertMessage: "",
+  },
+};
+
+const Button: FC<ButtonProps> = ({ onClick, text, alertMessage }) => {
+  const pathname = usePathname();
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (pathname === "/admin") onClick(event);
+    else window.alert(alertMessage);
+  };
+
+  return <ApButton onClick={handleClick}>{text}</ApButton>;
 };
 
 export default Button;

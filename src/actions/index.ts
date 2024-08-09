@@ -2,7 +2,7 @@ import store from "store2";
 import { InstanceData, MappedId } from "./type";
 
 export async function getSavedMappedIds(): Promise<MappedId> {
-  const mappedId = store.get("mappedId") || {};
+  const mappedId = store.get("mappedId") || { global: {} };
   return mappedId;
 }
 

@@ -1,14 +1,14 @@
-import { Instance } from "@/actions/type";
+"use client";
+
 import { ApButton, ApInput } from "@/components";
-import { FC } from "react";
+import { useMemo } from "react";
 import styles from "./EditorPanel.module.scss";
+import { useAdminContext } from "../AdminContext/AdminContext";
 
-interface EditorPanelProps {
-  selectedInstance: Instance;
-  setInstanceById: (id: string, data: Instance) => void;
-}
+const EditorPanel = () => {
+  const { selectedId, instances, setInstanceById } = useAdminContext();
+  const selectedInstance = useMemo(() => instances[selectedId], [instances, selectedId]);
 
-const EditorPanel: FC<EditorPanelProps> = ({ selectedInstance, setInstanceById }) => {
   return (
     <div className={styles.rightPanel}>
       <div className={styles.editor}>
@@ -20,11 +20,11 @@ const EditorPanel: FC<EditorPanelProps> = ({ selectedInstance, setInstanceById }
         {selectedInstance &&
           Object.keys(selectedInstance.props).map((prop) => (
             <ApInput
-              key={`${selectedInstance.id} ${prop}`}
+              key={`${selectedId} ${prop}`}
               label={prop}
               value={selectedInstance.props[prop]}
               setValue={(value: any) =>
-                setInstanceById(selectedInstance.id, {
+                setInstanceById(selectedId, {
                   ...selectedInstance,
                   props: { ...selectedInstance.props, prop: value },
                 })

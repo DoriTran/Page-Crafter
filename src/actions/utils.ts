@@ -1,7 +1,8 @@
-import { Container, InstanceData, MappedId } from "./type";
+import { InstanceData, MappedId } from "@/store/preview/state";
+import { Container } from "./type";
 
 export const mappingContainer = (map: MappedId, data: InstanceData, currentId: string = "global"): Container => {
-  const result: Container = (data[currentId] as Container) || {
+  const result: Container = (data?.[currentId] as Container) || {
     id: currentId,
     component: "Container",
     props: {},

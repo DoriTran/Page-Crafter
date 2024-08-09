@@ -1,11 +1,17 @@
 export interface Instance {
-  id: string;
+  id?: string;
   component: string;
   props: { [key: string]: any };
 }
 
 export interface Container extends Instance {
   instances: Container[];
+}
+
+// Mouse position
+export interface Position {
+  x: number;
+  y: number;
 }
 
 // Object of instance data with each keys as their ids

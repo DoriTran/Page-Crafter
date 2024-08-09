@@ -1,0 +1,12 @@
+.highlight {
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3); /* Shadow around the component */
+  border-radius: 8px; /* Optional: Rounded corners */
+  padding: 10px; /* Optional: Padding to add space around the child */
+  background-color: #fff; /* Optional: Background color to contrast the shadow */
+  transition: box-shadow 0.3s ease; /* Optional: Smooth transition effect */
+}
+
+/* Optional: Additional hover effect */
+.highlight:hover {
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.5);
+}
