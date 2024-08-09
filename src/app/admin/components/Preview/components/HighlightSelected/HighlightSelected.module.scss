@@ -1,12 +1,30 @@
 .highlight {
-  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3); /* Shadow around the component */
-  border-radius: 8px; /* Optional: Rounded corners */
-  padding: 10px; /* Optional: Padding to add space around the child */
-  background-color: #fff; /* Optional: Background color to contrast the shadow */
-  transition: box-shadow 0.3s ease; /* Optional: Smooth transition effect */
+  border: 2px solid black !important;
+  background-color: #fff;
 }
 
-/* Optional: Additional hover effect */
 .highlight:hover {
-  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.5);
+  background-color: papayawhip;
+}
+
+.over:hover {
+  border: 2px solid grey;
+}
+
+.wrapper {
+  padding: 0 5px;
+  border: 2px solid transparent;
+  transition:
+    border 0.1s ease,
+    background-color 0.1s ease;
+  width: fit-content;
+}
+
+.globalWrapper {
+  padding: 0px !important;
+}
+
+.container {
+  padding: 0px !important;
+  width: 100% !important;
 }

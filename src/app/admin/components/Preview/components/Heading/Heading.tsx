@@ -4,6 +4,7 @@ import ComponentProps from "../type";
 interface HeadingProps extends ComponentProps {
   heading?: "h1" | "h2" | "h3" | "h4" | "h5";
   text?: string;
+  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export const defaultHeading = {
@@ -14,10 +15,10 @@ export const defaultHeading = {
   },
 };
 
-const Heading: FC<HeadingProps> = ({ heading, text }) => {
+const Heading: FC<HeadingProps> = ({ heading, text, onClick }) => {
   const Tag = heading || "h1";
 
-  return <Tag>{text}</Tag>;
+  return <Tag onClick={onClick}>{text || `Heading - ${Tag}`}</Tag>;
 };
 
 export default Heading;

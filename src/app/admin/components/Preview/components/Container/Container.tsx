@@ -20,9 +20,9 @@ const Container: FC<ContainerProps> = ({ path, children, ...restProps }) => {
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+    event.stopPropagation(); // Stop event from bubbling up
     const type = event.dataTransfer.getData("type");
     createNewInstance(path || [], type);
-    console.log("wtf");
   };
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -33,6 +33,7 @@ const Container: FC<ContainerProps> = ({ path, children, ...restProps }) => {
   return (
     <div
       {...(path?.length === 1 && { className: styles.preview, onMouseMove: handleMouseMove })}
+      {...(path?.length !== 1 && { className: styles.container })}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       {...restProps}

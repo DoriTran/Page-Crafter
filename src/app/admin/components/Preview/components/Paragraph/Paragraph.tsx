@@ -7,6 +7,7 @@ interface ParagraphProps extends ComponentProps {
   bold?: boolean;
   italic?: boolean;
   underline?: boolean;
+  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export const defaultParagraph = {
@@ -20,7 +21,7 @@ export const defaultParagraph = {
   },
 };
 
-const Paragraph: FC<ParagraphProps> = ({ text, fontSize, bold, italic, underline }) => {
+const Paragraph: FC<ParagraphProps> = ({ text, fontSize, bold, italic, underline, onClick }) => {
   const styles = useMemo<CSSProperties>(() => {
     return {
       fontSize,
@@ -30,7 +31,11 @@ const Paragraph: FC<ParagraphProps> = ({ text, fontSize, bold, italic, underline
     };
   }, [fontSize, bold, italic, underline]);
 
-  return <div style={styles}>{text}</div>;
+  return (
+    <div style={styles} onClick={onClick}>
+      {text || "New paragraph"}
+    </div>
+  );
 };
 
 export default Paragraph;

@@ -1,7 +1,7 @@
 "use client";
 
-import { Container as ContainerType } from "@/actions/type";
 import { FC } from "react";
+import { Container as ContainerType } from "@/actions/type";
 import { Button, Container, Heading, HighlightSelected, Paragraph } from "./components";
 import { useAdminContext } from "../AdminContext/AdminContext";
 
@@ -18,7 +18,8 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
     onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       event.preventDefault();
       event.stopPropagation();
-      setSelectedId(container.id || "");
+      if (container.id === "global") setSelectedId("");
+      else setSelectedId(container.id || "");
     },
   };
 
@@ -28,7 +29,7 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
         return (
           <Container path={[...path, container.id || ""]} {...props}>
             {container.instances.map((eachInstance) => (
-              <Display key={container.id} container={eachInstance} />
+              <Display key={container.id} path={[...path, container.id || ""]} container={eachInstance} />
             ))}
           </Container>
         );
@@ -47,7 +48,16 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
     }
   })();
 
-  return selectedId === container.id ? <HighlightSelected>{component}</HighlightSelected> : component;
+  return (
+    <HighlightSelected
+      isHighlight={selectedId === container.id}
+      isGlobal={container.id === "global"}
+      isContainer={container.component === "Container"}
+      onClick={(event) => props.onClick(event)}
+    >
+      {component}
+    </HighlightSelected>
+  );
 };
 
 export default Display;
