@@ -3,12 +3,11 @@
 import { Chip } from "@mui/material";
 import { FC, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
-import { themes } from "@/utils/themes";
 import styles from "./ApChip.module.scss";
 import { ApChipProps } from "./ChipInterface";
 import { ApIcon } from "..";
 import ChipIcons from "./ChipIcons";
-import { chipColors, chipStyle, iconStyle, labelStyle, onlyIconStyle } from "./ChipStyle";
+import { chipStyle, iconStyle, onlyIconStyle } from "./ChipStyle";
 
 const ApChip: FC<ApChipProps> = ({
   icon,
@@ -49,8 +48,8 @@ const ApChip: FC<ApChipProps> = ({
 
   // Style calculations
   const iconColor = useMemo<string>(() => {
-    const contrastColor = color ? chipColors[color].dark : themes.color.primaryDark;
-    if (filled) return hover ? contrastColor : themes.color.priWhite;
+    const contrastColor = color || "grey";
+    if (filled) return hover ? contrastColor : "white";
     return contrastColor;
   }, [filled, color, hover]);
 
@@ -102,7 +101,7 @@ const ApChip: FC<ApChipProps> = ({
               minWidth: hover ? (small ? "20px" : "29px") : 0,
               width: hover ? "auto" : 0,
               opacity: hover ? 1 : 0,
-              ...(color && { backgroundColor: chipColors[color].base }),
+              ...(color && { backgroundColor: "grey" }),
               ...style.hoverIcons,
             }}
           />
@@ -114,28 +113,27 @@ const ApChip: FC<ApChipProps> = ({
         ...chipStyle,
 
         ...(color && {
-          backgroundColor: chipColors[color].light,
-          borderColor: chipColors[color].dark,
-          color: chipColors[color].dark,
+          backgroundColor: "grey",
+          borderColor: "grey",
+          color: "grey",
 
           "&&:hover": {
-            backgroundColor: chipColors[color].base,
+            backgroundColor: "grey",
           },
         }),
 
         ...(filled && {
           border: "none",
-          backgroundColor: color ? chipColors[color].dark : themes.color.primaryDark,
-          color: hover ? (color ? chipColors[color].dark : themes.color.primaryDark) : themes.color.priWhite,
+          backgroundColor: color ? "grey" : "black",
+          color: hover ? (color ? "grey" : "black") : "white",
 
           "&&:hover": {
-            backgroundColor: color ? chipColors[color].base : themes.color.primary,
+            backgroundColor: color ? "grey" : "black",
           },
         }),
 
         ...(icon && label && iconStyle),
         ...(icon && !label && onlyIconStyle),
-        ...(label && labelStyle),
 
         ...sx,
         ...style,

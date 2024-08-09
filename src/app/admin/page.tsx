@@ -1,19 +1,12 @@
-import styles from "./page.module.scss";
+import { InstanceData, MappedId } from "@/actions/type";
+import { getSavedInstances, getSavedMappedIds } from "@/actions";
+import Admin from "./Admin";
 
-const AdminPage = () => {
-  return (
-    <div className={styles.page}>
-      <Header />
-      <div className={styles.body}>
-        <ComponentPanel />
-        <div className={styles.main}>
-          <Preview />
-          <Editor />
-        </div>
-        <InfoPanel />
-      </div>
-    </div>
-  );
+const AdminPage = async () => {
+  const savedInstances: InstanceData = await getSavedInstances();
+  const savedMappedIds: MappedId = await getSavedMappedIds();
+
+  return <Admin savedInstances={savedInstances} savedMappedIds={savedMappedIds} />;
 };
 
 export default AdminPage;

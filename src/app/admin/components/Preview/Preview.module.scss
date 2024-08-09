@@ -1,0 +1,9 @@
+@import "@/app/globals.scss";
+
+.preview {
+  height: $bodyHeight;
+  max-height: $bodyHeight;
+  width: $previewWidth;
+
+  position: relative;
+}

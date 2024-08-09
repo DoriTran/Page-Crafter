@@ -26,9 +26,9 @@ $semibold: 600;
 $bold: 700;
 
 // Others global styles
-$expandedSidebar: 230px;
-$collapsedSidebar: 80px;
-$leftPositionSidebar: calc($collapsedSidebar - $expandedSidebar);
+$headerHeight: 75px;
+$bodyHeight: calc(100vh - $headerHeight);
+$previewWidth: calc(100vw - 200px - 300px);
 
 // Mixing styles
 @mixin flexRow {

@@ -1,0 +1,19 @@
+@import "@/app/globals.scss";
+
+.header {
+  height: $headerHeight;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .totalComponent {
+    font-size: $large;
+  }
+}

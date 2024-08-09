@@ -1,37 +1,19 @@
-export interface CardInfo {
-  keyword: string;
-  description: string;
-  wrongRelearnRemain?: number;
-  minAnswerTime?: number;
+export interface Instance {
+  id: string;
+  component: string;
+  props: { [key: string]: any };
 }
 
-export interface LearningProgress {
-  // negative means not learning yet
-  // positive means learning
-  // exceed learningPack size means learning wrong pack
-  at: number;
-  learningPack: CardInfo[];
-  wrongPack: CardInfo[];
+export interface Container extends Instance {
+  instances: Container[];
 }
 
-export interface LearningSettings {
-  hiragana?: boolean;
-  katakana?: boolean;
-  flipped?: boolean;
-  suffle?: boolean;
-  onlyStar?: boolean;
-  onlyWrong?: boolean;
-  wrongRelearn?: boolean;
-  auto?: number;
+// Object of instance data with each keys as their ids
+export interface InstanceData {
+  [key: string]: Instance;
 }
 
-export const defaultSettings: LearningSettings = {
-  hiragana: true,
-  katakana: true,
-  flipped: false,
-  suffle: false,
-  onlyStar: false,
-  onlyWrong: false,
-  wrongRelearn: false,
-  auto: 0,
-};
+// Object of id and its component ids in recursive way
+export interface MappedId {
+  [key: string]: MappedId;
+}

@@ -1,4 +1,3 @@
-import { themes } from "@/utils/themes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FC, useMemo } from "react";
 
@@ -22,7 +21,7 @@ const ApIcon: FC<ApIconProps> = ({
   ...restProps
 }) => {
   const iconColor = useMemo(() => {
-    return themes.color[color] ? themes.color[color] : color;
+    return color || "black";
   }, [color]);
 
   return (

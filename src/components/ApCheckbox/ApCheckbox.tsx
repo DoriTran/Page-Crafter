@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { themes } from "@/utils/themes";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { ChangeEvent, FC, useMemo } from "react";
 
@@ -35,7 +34,7 @@ const ApCheckbox: FC<ApCheckboxProps> = ({
 
   style,
   size = "medium",
-  color = themes.color.primaryDark,
+  color = "black",
 
   icon,
   checkedIcon,

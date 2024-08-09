@@ -1,0 +1,23 @@
+@import "@/app/globals.scss";
+
+.rightPanel {
+  width: 300px;
+  height: $bodyHeight;
+  max-height: $bodyHeight;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .editor {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .viewAction {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+}

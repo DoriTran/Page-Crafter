@@ -12,6 +12,7 @@ import {
   faTable,
   faFolderTree,
   faChartSimple,
+  faHeading,
 } from "@fortawesome/free-solid-svg-icons";
 
 type Component = {
@@ -21,6 +22,7 @@ type Component = {
 
 const components: Component[] = [
   { type: "Container", icon: faInbox },
+  { type: "Heading", icon: faHeading },
   { type: "Paragraph", icon: faParagraph },
   { type: "Button", icon: faStop },
   { type: "Checkbox", icon: faCheckSquare },

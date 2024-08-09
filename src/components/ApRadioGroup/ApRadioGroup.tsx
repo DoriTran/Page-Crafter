@@ -1,4 +1,3 @@
-import { themes } from "@/utils/themes";
 import { RadioGroup, Radio, FormControlLabel } from "@mui/material";
 import { ChangeEvent, FC } from "react";
 
@@ -42,7 +41,7 @@ const ApRadioGroup: FC<ApRadioGroupProps> = ({
   style,
   gap = "5px",
   size = "medium",
-  color = themes.color.primaryDark,
+  color = "black",
   icon,
   checkedIcon,
 

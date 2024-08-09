@@ -1,0 +1,11 @@
+@import "@/app/globals.scss";
+
+.page {
+  display: flex;
+  flex-direction: column;
+
+  .body {
+    display: flex;
+    flex-direction: row;
+  }
+}

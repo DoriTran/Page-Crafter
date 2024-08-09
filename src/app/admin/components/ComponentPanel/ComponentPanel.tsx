@@ -1,5 +1,6 @@
 import styles from "./ComponentPanel.module.scss";
-import components from "./availableComponents";
+import Component from "./Component";
+import components from "./available";
 
 const ComponentPanel = () => {
   return (
