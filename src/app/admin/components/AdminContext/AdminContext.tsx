@@ -5,7 +5,7 @@ import { Action, Instance, InstanceData, MappedIds, Position } from "@/actions/t
 import { createContext, useContext, useState, ReactNode, FC, useMemo, useEffect } from "react";
 import _ from "lodash";
 import { useQuery } from "@tanstack/react-query";
-import { clearData, getData, saveData } from "@/actions";
+import { getData, saveData } from "@/actions";
 import { getDefaultProps } from "../Preview/components";
 
 // Create context
@@ -28,6 +28,8 @@ const AdminContext = createContext<{
   canRedo: boolean;
   clearBoard: () => void;
   saveContextData: () => Promise<void>;
+  importData: (jsonData: string) => void;
+  exportData: () => void;
 }>({
   mousePosition: { x: 0, y: 0 },
   setMousePosition: () => {},
@@ -47,6 +49,8 @@ const AdminContext = createContext<{
   canRedo: false,
   clearBoard: () => {},
   saveContextData: async () => {},
+  importData: () => {},
+  exportData: () => {},
 });
 
 // Custom hook to use the context
@@ -76,27 +80,14 @@ const AdminProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, [isSuccess, data]);
 
-  useEffect(() => {
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log("Undo stack:", undoStack);
-  }, [undoStack]);
-
-  useEffect(() => {
-    console.log(instances, mappedIds);
-  }, [instances, mappedIds]);
-
-  useEffect(() => {
-    console.log("Redo stack:", redoStack);
-  }, [redoStack]);
-
-  const getCurrentData = (): Action => {
-    return {
-      instances: _.cloneDeep(instances),
-      mappedIds: _.cloneDeep(mappedIds),
-    };
-  };
-
   const value = useMemo(() => {
+    const getCurrentData = (): Action => {
+      return {
+        instances: _.cloneDeep(instances),
+        mappedIds: _.cloneDeep(mappedIds),
+      };
+    };
+
     const createNewInstance = (path: string[], type: string) => {
       // Stack handle
       setUndoStack(_.cloneDeep([...undoStack, getCurrentData()]));
@@ -162,6 +153,27 @@ const AdminProvider: FC<{ children: ReactNode }> = ({ children }) => {
       }
     };
 
+    const importData = (jsonData: string) => {
+      const newData = JSON.parse(jsonData);
+      if (newData.mappedIds && newData.instances) {
+        setMappedIds(newData.mappedIds);
+        setInstances(newData.instances);
+        setUndoStack([getCurrentData()]);
+        setRedoStack([]);
+      } else {
+        console.error("Invalid data format.");
+      }
+    };
+
+    const exportData = () => {
+      const currentData = getCurrentData();
+      // eslint-disable-next-line max-len
+      const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(currentData, null, 2))}`;
+      const link = document.createElement("a");
+      link.href = jsonString;
+      link.download = "admin-data.json";
+      link.click();
+    };
     // const clearContextData = async () => {
     //   try {
     //     await clearData();
@@ -189,8 +201,10 @@ const AdminProvider: FC<{ children: ReactNode }> = ({ children }) => {
       canRedo: redoStack.length > 0,
       saveContextData,
       clearBoard,
+      importData,
+      exportData,
     };
-  }, [mousePosition, mappedIds, instances, selectedId, dragging, undoStack, redoStack, getCurrentData]);
+  }, [mousePosition, mappedIds, instances, selectedId, dragging, undoStack, redoStack]);
 
   return <AdminContext.Provider value={value}>{children}</AdminContext.Provider>;
 };

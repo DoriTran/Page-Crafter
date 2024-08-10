@@ -28,13 +28,9 @@ export async function getData(): Promise<Data> {
 
 // Save to storage
 export async function saveData(mappedIds: MappedIds, instances: InstanceData): Promise<void> {
+  localStorage.clear();
   store.set("mappedIds", mappedIds);
   Object.keys(instances).forEach((key) => store.set(key, instances[key]));
-}
-
-// Clear storage
-export async function clearData(): Promise<void> {
-  localStorage.clear();
 }
 
 // ==================== Learning progress:
