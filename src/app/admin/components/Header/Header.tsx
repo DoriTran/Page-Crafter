@@ -12,16 +12,20 @@ import {
   faUndo,
 } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
+import { Button } from "@mui/material";
 import styles from "./Header.module.scss";
 import { useAdminContext } from "../AdminContext/AdminContext";
 
 const Header = () => {
-  const { mousePosition, instances, dragging, canUndo, canRedo, undo, redo } = useAdminContext();
+  const { mousePosition, instances, dragging, canUndo, canRedo, undo, redo, saveContextData, clearBoard } =
+    useAdminContext();
 
   return (
     <div className={styles.header}>
       <div className={clsx(styles.wrapper, styles.left)}>
-        <ApButton startIcon={<ApIcon icon={faSave} />}>Save</ApButton>
+        <ApButton startIcon={<ApIcon icon={faSave} />} onClick={() => saveContextData()}>
+          Save
+        </ApButton>
         <ApButton disabled={!canUndo ? true : undefined} icon={faUndo} onClick={() => undo()} />
         <ApButton disabled={!canRedo ? true : undefined} icon={faRedo} onClick={() => redo()} />
       </div>
@@ -33,6 +37,9 @@ const Header = () => {
       <div className={styles.wrapper}>
         <ApButton startIcon={<ApIcon icon={faFileArrowUp} />}>Import</ApButton>
         <ApButton startIcon={<ApIcon icon={faFileArrowDown} />}>Export</ApButton>
+        <Button variant="contained" onClick={() => clearBoard()} color="error">
+          Clear
+        </Button>
       </div>
     </div>
   );

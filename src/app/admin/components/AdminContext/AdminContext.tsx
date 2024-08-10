@@ -4,6 +4,8 @@ import { nanoid } from "nanoid";
 import { Action, Instance, InstanceData, MappedIds, Position } from "@/actions/type";
 import { createContext, useContext, useState, ReactNode, FC, useMemo, useEffect } from "react";
 import _ from "lodash";
+import { useQuery } from "@tanstack/react-query";
+import { clearData, getData, saveData } from "@/actions";
 import { getDefaultProps } from "../Preview/components";
 
 // Create context
@@ -24,6 +26,8 @@ const AdminContext = createContext<{
   redo: () => void;
   canUndo: boolean;
   canRedo: boolean;
+  clearBoard: () => void;
+  saveContextData: () => Promise<void>;
 }>({
   mousePosition: { x: 0, y: 0 },
   setMousePosition: () => {},
@@ -41,6 +45,8 @@ const AdminContext = createContext<{
   redo: () => {},
   canUndo: false,
   canRedo: false,
+  clearBoard: () => {},
+  saveContextData: async () => {},
 });
 
 // Custom hook to use the context
@@ -49,14 +55,26 @@ export const useAdminContext = () => {
 };
 
 // Context provider
-const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
+const AdminProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [mousePosition, setMousePosition] = useState<Position>({ x: 0, y: 0 });
   const [mappedIds, setMappedIds] = useState<MappedIds>({ global: {} });
   const [instances, setInstances] = useState<InstanceData>({});
-  const [undoStack, setUndoStack] = useState<Action[]>([{ instances, mappedIds }]);
+  const [undoStack, setUndoStack] = useState<Action[]>([]);
   const [redoStack, setRedoStack] = useState<Action[]>([]);
   const [selectedId, setSelectedId] = useState<string>("");
   const [dragging, setDragging] = useState<string>("None");
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ["adminData"],
+    queryFn: getData,
+  });
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setMappedIds(data.mappedIds);
+      setInstances(data.instances);
+    }
+  }, [isSuccess, data]);
 
   useEffect(() => {
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -71,8 +89,20 @@ const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
     console.log("Redo stack:", redoStack);
   }, [redoStack]);
 
+  const getCurrentData = (): Action => {
+    return {
+      instances: _.cloneDeep(instances),
+      mappedIds: _.cloneDeep(mappedIds),
+    };
+  };
+
   const value = useMemo(() => {
     const createNewInstance = (path: string[], type: string) => {
+      // Stack handle
+      setUndoStack(_.cloneDeep([...undoStack, getCurrentData()]));
+      setRedoStack([]);
+
+      // Create new instance
       const id = nanoid();
       const newInstances = _.cloneDeep({
         ...instances,
@@ -84,33 +114,61 @@ const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setInstances(_.cloneDeep(newInstances));
       setMappedIds(_.cloneDeep(newMappedIds));
       setSelectedId(id);
-      setUndoStack([...undoStack, { instances: _.cloneDeep(newInstances), mappedIds: _.cloneDeep(newMappedIds) }]);
-      setRedoStack([]);
     };
 
-    const setInstanceById = (data: Instance) => {
-      setInstances({ ...instances, [data.id || ""]: _.cloneDeep(data) });
-      setUndoStack([...undoStack, { instances: _.cloneDeep({ ...instances, [data.id || ""]: data }) }]);
+    const setInstanceById = (instanceData: Instance) => {
+      // Stack handle
+      setUndoStack(_.cloneDeep([...undoStack, getCurrentData()]));
       setRedoStack([]);
+
+      // Set instance by id
+      setInstances({ ...instances, [instanceData.id || ""]: _.cloneDeep(instanceData) });
     };
 
     const undo = () => {
       if (undoStack.length === 0) return;
-      setRedoStack([...redoStack, undoStack[undoStack.length - 1]]);
-      const undoData = undoStack[undoStack.length - 2];
-      setInstances(undoData.instances);
-      if (undoData.mappedIds !== undefined) setMappedIds(undoData.mappedIds);
-      setUndoStack(undoStack.slice(0, -1));
+      const undoData = _.cloneDeep(undoStack[undoStack.length - 1]);
+      // Undo current data
+      setInstances(_.cloneDeep(undoData.instances));
+      if (undoData.mappedIds !== undefined) setMappedIds(_.cloneDeep(undoData.mappedIds));
+      // Stack handle
+      setRedoStack(_.cloneDeep([...redoStack, getCurrentData()]));
+      setUndoStack(_.cloneDeep(undoStack.slice(0, -1)));
     };
 
     const redo = () => {
       if (redoStack.length === 0) return;
-      setUndoStack([...undoStack, { instances, mappedIds }]);
-      const redoData = redoStack[redoStack.length - 1];
-      setInstances(redoData.instances);
-      if (redoData.mappedIds !== undefined) setMappedIds(redoData.mappedIds);
-      setRedoStack(redoStack.slice(0, -1));
+      const redoData = _.cloneDeep(redoStack[redoStack.length - 1]);
+      // Redo current data
+      setInstances(_.cloneDeep(redoData.instances));
+      if (redoData.mappedIds !== undefined) setMappedIds(_.cloneDeep(redoData.mappedIds));
+      // Stack handle
+      setUndoStack(_.cloneDeep([...undoStack, getCurrentData()]));
+      setRedoStack(_.cloneDeep(redoStack.slice(0, -1)));
     };
+
+    const clearBoard = () => {
+      setUndoStack([...undoStack, _.cloneDeep({ instances, mappedIds })]);
+      setRedoStack([]);
+      setInstances({});
+      setMappedIds({ global: {} });
+    };
+
+    const saveContextData = async () => {
+      try {
+        await saveData(mappedIds, instances);
+      } catch (error) {
+        console.error("Failed to save context data", error);
+      }
+    };
+
+    // const clearContextData = async () => {
+    //   try {
+    //     await clearData();
+    //   } catch (error) {
+    //     console.error("Failed to clear context data", error);
+    //   }
+    // };
 
     return {
       mousePosition,
@@ -127,12 +185,14 @@ const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setInstanceById,
       undo,
       redo,
-      canUndo: undoStack.length > 1,
+      canUndo: undoStack.length > 0,
       canRedo: redoStack.length > 0,
+      saveContextData,
+      clearBoard,
     };
-  }, [mousePosition, mappedIds, instances, selectedId, dragging, undoStack, redoStack]);
+  }, [mousePosition, mappedIds, instances, selectedId, dragging, undoStack, redoStack, getCurrentData]);
 
   return <AdminContext.Provider value={value}>{children}</AdminContext.Provider>;
 };
 
-export default MousePositionProvider;
+export default AdminProvider;

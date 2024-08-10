@@ -28,3 +28,8 @@ export interface Action {
   instances: InstanceData;
   mappedIds?: MappedIds;
 }
+
+export interface Data {
+  instances: InstanceData;
+  mappedIds: MappedIds;
+}
