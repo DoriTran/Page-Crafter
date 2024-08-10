@@ -9,9 +9,9 @@ const InputFieldEdit: FC<EditorProps> = ({ instance }) => {
 
   return (
     <>
-      <LabelWrapper label="Input type:">
+      <LabelWrapper label="Input type (text/number/file/image...):">
         <ApInput
-          value={instance.props.type || "text"}
+          value={instance.props.type === undefined ? "text" : instance.props.type}
           setValue={(value: any) => setInstanceById({ ...instance, props: { ...instance.props, type: value } })}
           placehoder="Placeholder"
           width="100%"
@@ -27,7 +27,7 @@ const InputFieldEdit: FC<EditorProps> = ({ instance }) => {
       </LabelWrapper>
       <LabelWrapper label="Placeholder:">
         <ApInput
-          value={instance.props.placehoder || "Default placeholder"}
+          value={instance.props.placeholder === undefined ? "Default placeholder" : instance.props.placeholder}
           setValue={(value: any) =>
             setInstanceById({ ...instance, props: { ...instance.props, placeholder: value } })
           }
