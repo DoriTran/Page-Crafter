@@ -4,7 +4,7 @@ import { ChangeEvent, FC, useMemo } from "react";
 
 interface ApCheckboxProps {
   checked: boolean | any[];
-  setChecked: React.Dispatch<React.SetStateAction<boolean | any[]>>;
+  setChecked?: React.Dispatch<React.SetStateAction<boolean | any[]>>;
 
   readonly value?: any; // Value of the checkbox → Undefined case will use label as value
   readonly label?: string; // Display checkbox label
@@ -49,6 +49,7 @@ const ApCheckbox: FC<ApCheckboxProps> = ({
   }, [checked]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, changeValue: boolean) => {
+    console.log("Alo");
     if (setChecked) {
       if (typeof checked === "boolean") {
         setChecked(!checked);

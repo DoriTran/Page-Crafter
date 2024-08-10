@@ -1,7 +1,14 @@
 import { FC } from "react";
 import { Instance } from "@/actions/type";
 import styles from "./EditorPanel.module.scss";
-import { ButtonEdit, ContainerEdit, HeadingEdit, ParagraphEdit, UnknownComponent } from "./components";
+import {
+  ButtonEdit,
+  CheckboxEdit,
+  ContainerEdit,
+  HeadingEdit,
+  ParagraphEdit,
+  UnknownComponent,
+} from "./components";
 
 export interface EditorProps {
   instance: Instance;
@@ -18,6 +25,8 @@ const Editor: FC<EditorProps> = ({ instance }) => {
         return ParagraphEdit;
       case "Button":
         return ButtonEdit;
+      case "Checkbox":
+        return CheckboxEdit;
       default:
         return UnknownComponent;
     }

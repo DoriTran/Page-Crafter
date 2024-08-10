@@ -10,15 +10,12 @@ import ComponentProps from "../type";
 interface ButtonProps extends ComponentProps {
   text?: string;
   alertMessage?: string;
-  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export const defaultButton = {
-  component: "Button",
-  props: {
-    text: "",
-    alertMessage: "",
-  },
+  text: "",
+  alertMessage: "",
 };
 
 const Button: FC<ButtonProps> = ({ onClick, text, alertMessage }) => {

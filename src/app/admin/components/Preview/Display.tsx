@@ -2,7 +2,8 @@
 
 import { FC, useMemo } from "react";
 import { Container as ContainerType } from "@/actions/type";
-import { Button, Container, Heading, HighlightSelected, Paragraph } from "./components";
+import { usePathname } from "next/navigation";
+import { Button, Checkbox, Container, Heading, HighlightSelected, Paragraph } from "./components";
 import { useAdminContext } from "../AdminContext/AdminContext";
 
 interface DisplayProps {
@@ -12,15 +13,18 @@ interface DisplayProps {
 
 const Display: FC<DisplayProps> = ({ container, path = [] }) => {
   const { selectedId, setSelectedId } = useAdminContext();
+  const pathname = usePathname();
 
   const props = {
     ...container.props,
-    onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      event.preventDefault();
-      event.stopPropagation();
-      if (container.id === "global") setSelectedId("");
-      else setSelectedId(container.id || "");
-    },
+    ...(pathname === "/admin" && {
+      onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (container.id === "global") setSelectedId("");
+        else setSelectedId(container.id || "");
+      },
+    }),
   };
 
   const component = (() => {
@@ -39,6 +43,8 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
         return <Paragraph {...props} />;
       case "Button":
         return <Button {...props} />;
+      case "Checkbox":
+        return <Checkbox {...props} />;
       default:
         return (
           <div>
@@ -60,7 +66,7 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
       isGlobal={container.id === "global"}
       isContainer={container.component === "Container"}
       fitContent={isContainerFitcontent}
-      onClick={(event) => props.onClick(event)}
+      {...(pathname === "/admin" && props.onClick && { onClick: (event) => props.onClick?.(event) })}
     >
       {component}
     </HighlightSelected>

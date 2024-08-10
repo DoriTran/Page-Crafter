@@ -8,18 +8,15 @@ interface ParagraphProps extends ComponentProps {
   fontWeight?: number;
   textDecoration?: string;
   fontStyle?: string;
-  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export const defaultParagraph = {
-  component: "Paragraph",
-  props: {
-    text: "",
-    fontSize: "16px",
-    fontWeight: 400,
-    textDecoration: "none",
-    fontStyle: "none",
-  },
+  text: "",
+  fontSize: "16px",
+  fontWeight: 400,
+  textDecoration: "none",
+  fontStyle: "none",
 };
 
 const Paragraph: FC<ParagraphProps> = ({ text, fontSize, fontWeight, textDecoration, fontStyle, onClick }) => {

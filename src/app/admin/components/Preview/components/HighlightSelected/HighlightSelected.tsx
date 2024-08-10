@@ -8,7 +8,7 @@ interface HighlightSelectedProps {
   isGlobal: boolean;
   isContainer: boolean;
   fitContent?: boolean;
-  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   children: ReactNode;
 }
 
