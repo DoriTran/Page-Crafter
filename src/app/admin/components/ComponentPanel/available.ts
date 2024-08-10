@@ -7,8 +7,6 @@ import {
   faCaretDown,
   faImage,
   faPen,
-  faFileUpload,
-  faTable,
   faHeading,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,8 +25,6 @@ const components: Component[] = [
   { type: "Select", icon: faCaretDown },
   { type: "InputField", icon: faPen },
   { type: "Image", icon: faImage },
-  { type: "File", icon: faFileUpload },
-  { type: "Table", icon: faTable },
 ];
 
 export default components;

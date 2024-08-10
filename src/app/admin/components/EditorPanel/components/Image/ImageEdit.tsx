@@ -51,7 +51,7 @@ const ImageEdit: FC<EditorProps> = ({ instance }) => {
       </LabelWrapper>
       <LabelWrapper label="Width (px, vw, rem, %, ...):">
         <ApInput
-          value={instance.props.width}
+          value={instance.props.width || "200px"}
           setValue={(value: any) => setInstanceById({ ...instance, props: { ...instance.props, width: value } })}
           placehoder="Width"
           width="80%"
@@ -59,19 +59,9 @@ const ImageEdit: FC<EditorProps> = ({ instance }) => {
       </LabelWrapper>
       <LabelWrapper label="Height (px, vw, rem, %, ...):">
         <ApInput
-          value={instance.props.height}
+          value={instance.props.height || "200px"}
           setValue={(value: any) => setInstanceById({ ...instance, props: { ...instance.props, height: value } })}
           placehoder="Height"
-          width="80%"
-        />
-      </LabelWrapper>
-      <LabelWrapper label="Border radius:">
-        <ApInput
-          value={instance.props.borderRadius}
-          setValue={(value: any) =>
-            setInstanceById({ ...instance, props: { ...instance.props, borderRadius: value } })
-          }
-          placehoder="borderRadius"
           width="80%"
         />
       </LabelWrapper>
