@@ -7,6 +7,7 @@ interface HighlightSelectedProps {
   isHighlight: boolean;
   isGlobal: boolean;
   isContainer: boolean;
+  fitContent?: boolean;
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   children: ReactNode;
 }
@@ -15,6 +16,7 @@ const HighlightSelected: FC<HighlightSelectedProps> = ({
   isHighlight,
   isGlobal,
   isContainer,
+  fitContent,
   onClick,
   children,
 }) => {
@@ -27,6 +29,7 @@ const HighlightSelected: FC<HighlightSelectedProps> = ({
         [styles.over]: !isGlobal && pathname === "/admin",
         [styles.globalWrapper]: isGlobal,
         [styles.container]: isContainer,
+        [styles.fitContent]: fitContent,
       })}
       onClick={onClick}
     >

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { Container as ContainerType } from "@/actions/type";
 import { Button, Container, Heading, HighlightSelected, Paragraph } from "./components";
 import { useAdminContext } from "../AdminContext/AdminContext";
@@ -48,11 +48,18 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
     }
   })();
 
+  const isContainerFitcontent = useMemo<boolean>(() => {
+    if (container.component !== "Container") return false;
+    if (container.props.width === undefined || container.props.width === "") return false;
+    return true;
+  }, [container.props.width, container.component]);
+
   return (
     <HighlightSelected
       isHighlight={selectedId === container.id}
       isGlobal={container.id === "global"}
       isContainer={container.component === "Container"}
+      fitContent={isContainerFitcontent}
       onClick={(event) => props.onClick(event)}
     >
       {component}

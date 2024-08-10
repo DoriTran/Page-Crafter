@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useMemo } from "react";
+import { isNaN } from "lodash";
 import css from "./Container.module.scss";
 import ComponentProps from "../type";
 import { useAdminContext } from "../../../AdminContext/AdminContext";
@@ -52,8 +53,11 @@ const Container: FC<ContainerProps> = ({
   };
 
   const styles = useMemo<object>(() => {
+    // Convert width to a string with 'px' if it is a numeric string
+    const computedWidth = typeof width === "string" && !isNaN(Number(width)) ? `${width}px` : width;
+
     return {
-      width,
+      width: computedWidth,
       height,
       display,
       flexDirection,
