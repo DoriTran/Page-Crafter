@@ -174,13 +174,6 @@ const AdminProvider: FC<{ children: ReactNode }> = ({ children }) => {
       link.download = "admin-data.json";
       link.click();
     };
-    // const clearContextData = async () => {
-    //   try {
-    //     await clearData();
-    //   } catch (error) {
-    //     console.error("Failed to clear context data", error);
-    //   }
-    // };
 
     return {
       mousePosition,

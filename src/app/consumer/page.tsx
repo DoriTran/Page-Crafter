@@ -1,7 +1,11 @@
-import styles from "./page.module.scss";
+import { ConsumerContext, View } from "./components";
 
 const ConsumerPage = () => {
-  return <div className={styles.page}>Consumer page</div>;
+  return (
+    <ConsumerContext>
+      <View />
+    </ConsumerContext>
+  );
 };
 
 export default ConsumerPage;
