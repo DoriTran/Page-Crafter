@@ -9,6 +9,7 @@ import {
   Container,
   Heading,
   HighlightSelected,
+  InputField,
   Paragraph,
   RadioGroup,
   Select,
@@ -58,10 +59,12 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
         return <RadioGroup {...props} />;
       case "Select":
         return <Select {...props} />;
+      case "InputField":
+        return <InputField {...props} />;
       default:
         return (
           <div>
-            {container.id} : {JSON.stringify(container.props)}
+            No display found - Info: {container.id} : {JSON.stringify(container.props)}
           </div>
         );
     }

@@ -6,6 +6,7 @@ import {
   CheckboxEdit,
   ContainerEdit,
   HeadingEdit,
+  InputFieldEdit,
   ParagraphEdit,
   RadioGroupEdit,
   SelectEdit,
@@ -33,6 +34,8 @@ const Editor: FC<EditorProps> = ({ instance }) => {
         return RadioGroupEdit;
       case "Select":
         return SelectEdit;
+      case "InputField":
+        return InputFieldEdit;
       default:
         return UnknownComponent;
     }
