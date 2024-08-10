@@ -9,7 +9,6 @@ const HeadingEdit: FC<EditorProps> = ({ instance }) => {
 
   return (
     <>
-      <div>{instance.id}</div>
       <LabelWrapper label="Tag heading:">
         <ApRadioGroup
           value={instance.props.heading || "h1"}

@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
 import styles from "./HighlightSelected.module.scss"; // Assuming you use SCSS for styling
 
 interface HighlightSelectedProps {
@@ -17,11 +18,13 @@ const HighlightSelected: FC<HighlightSelectedProps> = ({
   onClick,
   children,
 }) => {
+  const pathname = usePathname();
+
   return (
     <div
       className={clsx(styles.wrapper, {
-        [styles.highlight]: isHighlight,
-        [styles.over]: !isGlobal,
+        [styles.highlight]: isHighlight && pathname === "/admin",
+        [styles.over]: !isGlobal && pathname === "/admin",
         [styles.globalWrapper]: isGlobal,
         [styles.container]: isContainer,
       })}

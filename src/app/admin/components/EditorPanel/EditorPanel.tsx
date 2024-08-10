@@ -21,6 +21,7 @@ const EditorPanel = () => {
         {selectedInstance && (
           <>
             <div className={styles.selectedInstance}>{selectedInstance.component}</div>
+            <div className={styles.idWrapper}>Id: {selectedId || "Unknown"}</div>
             <Editor instance={selectedInstance} />
           </>
         )}

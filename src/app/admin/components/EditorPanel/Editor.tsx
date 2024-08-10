@@ -25,7 +25,7 @@ const Editor: FC<EditorProps> = ({ instance }) => {
 
   return (
     <div className={styles.editorWrapper}>
-      <EditComponent instance={instance} />
+      <EditComponent key={instance.id} instance={instance} />
     </div>
   );
 };
