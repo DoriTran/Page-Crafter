@@ -89,6 +89,7 @@ const AdminProvider: FC<{ children: ReactNode }> = ({ children }) => {
     };
 
     const createNewInstance = (path: string[], type: string) => {
+      console.log(type);
       // Stack handle
       setUndoStack(_.cloneDeep([...undoStack, getCurrentData()]));
       setRedoStack([]);

@@ -8,6 +8,7 @@ import {
   HeadingEdit,
   ParagraphEdit,
   RadioGroupEdit,
+  SelectEdit,
   UnknownComponent,
 } from "./components";
 
@@ -30,6 +31,8 @@ const Editor: FC<EditorProps> = ({ instance }) => {
         return CheckboxEdit;
       case "RadioGroup":
         return RadioGroupEdit;
+      case "Select":
+        return SelectEdit;
       default:
         return UnknownComponent;
     }
