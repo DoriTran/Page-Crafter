@@ -7,11 +7,8 @@ import {
   faCaretDown,
   faImage,
   faPen,
-  faUpload,
   faFileUpload,
   faTable,
-  // faFolderTree,
-  // faChartSimple,
   faHeading,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,11 +27,8 @@ const components: Component[] = [
   { type: "Select", icon: faCaretDown },
   { type: "InputField", icon: faPen },
   { type: "Image", icon: faImage },
-  { type: "Image Upload", icon: faUpload },
-  { type: "File Upload", icon: faFileUpload },
+  { type: "File", icon: faFileUpload },
   { type: "Table", icon: faTable },
-  // { type: "Tree", icon: faFolderTree },
-  // { type: "Chart", icon: faChartSimple },
 ];
 
 export default components;

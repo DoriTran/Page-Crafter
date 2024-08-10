@@ -6,4 +6,5 @@ export { default as CheckboxEdit } from "./Checkbox/CheckboxEdit";
 export { default as RadioGroupEdit } from "./RadioGroup/RadioGroupEdit";
 export { default as SelectEdit } from "./Select/SelectEdit";
 export { default as InputFieldEdit } from "./InputField/InputFieldEdit";
+export { default as ImageEdit } from "./Image/ImageEdit";
 export { default as UnknownComponent } from "./UnknownComponent/UnknownComponent";

@@ -9,6 +9,7 @@ import {
   Container,
   Heading,
   HighlightSelected,
+  Image,
   InputField,
   Paragraph,
   RadioGroup,
@@ -61,6 +62,8 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
         return <Select {...props} />;
       case "InputField":
         return <InputField {...props} />;
+      case "Image":
+        return <Image alt="Alternative" {...props} />;
       default:
         return (
           <div>
