@@ -2,6 +2,7 @@
 
 import { FC, useMemo } from "react";
 import { isNaN } from "lodash";
+import { usePathname } from "next/navigation";
 import css from "./Container.module.scss";
 import ComponentProps from "../type";
 import { useAdminContext } from "../../../AdminContext/AdminContext";
@@ -34,6 +35,7 @@ const Container: FC<ContainerProps> = ({
   ...restProps
 }) => {
   const { createNewInstance, setMousePosition, setDragging } = useAdminContext();
+  const pathname = usePathname();
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -57,6 +59,7 @@ const Container: FC<ContainerProps> = ({
     const computedWidth = typeof width === "string" && !isNaN(Number(width)) ? `${width}px` : width;
 
     return {
+      ...(pathname === "/admin" && { backgroundColor: "#F7EFE5" }),
       width: computedWidth,
       height,
       display,
@@ -66,7 +69,7 @@ const Container: FC<ContainerProps> = ({
       flexWrap,
       gap,
     };
-  }, [width, height, display, flexDirection, justifyContent, alignItems, flexWrap, gap]);
+  }, [width, pathname, height, display, flexDirection, justifyContent, alignItems, flexWrap, gap]);
 
   return (
     <div
