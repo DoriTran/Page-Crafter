@@ -18,8 +18,16 @@ const Component: FC<ComponentProps> = ({ type, icon }) => {
     setDragging(type);
   };
 
+  const handleDragEnd = () => setDragging("None");
+
   return (
-    <Paper className={styles.wrapper} elevation={3} draggable onDragStart={handleDragStart}>
+    <Paper
+      className={styles.wrapper}
+      elevation={3}
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <ApIcon icon={icon} color="#D8AE7E" size={35} />
       <div className={styles.type}>{type}</div>
     </Paper>

@@ -34,7 +34,7 @@ const Container: FC<ContainerProps> = ({
   children,
   ...restProps
 }) => {
-  const { createNewInstance, setMousePosition, setDragging } = useAdminContext();
+  const { createNewInstance, setMousePosition } = useAdminContext();
   const pathname = usePathname();
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -46,7 +46,6 @@ const Container: FC<ContainerProps> = ({
     event.stopPropagation(); // Stop event from bubbling up
     const type = event.dataTransfer.getData("type");
     createNewInstance(path || [], type);
-    setDragging("None");
   };
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
