@@ -74,10 +74,13 @@ const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const value = useMemo(() => {
     const createNewInstance = (path: string[], type: string) => {
       const id = nanoid();
+      const newInstances = _.cloneDeep({
+        ...instances,
+        [id]: { id, component: type, props: getDefaultProps(type) },
+      });
       const newMappedIds = _.cloneDeep(mappedIds);
       path.reduce((acc: any, key: string) => acc[key], newMappedIds)[id] = {};
 
-      const newInstances = { ...instances, [id]: { id, component: type, props: getDefaultProps(type) } };
       setInstances(_.cloneDeep(newInstances));
       setMappedIds(_.cloneDeep(newMappedIds));
       setSelectedId(id);
@@ -103,7 +106,7 @@ const MousePositionProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const redo = () => {
       if (redoStack.length === 0) return;
       setUndoStack([...undoStack, { instances, mappedIds }]);
-      const redoData = redoStack[undoStack.length - 1];
+      const redoData = redoStack[redoStack.length - 1];
       setInstances(redoData.instances);
       if (redoData.mappedIds !== undefined) setMappedIds(redoData.mappedIds);
       setRedoStack(redoStack.slice(0, -1));
