@@ -3,7 +3,7 @@
 import { FC, useMemo } from "react";
 import { Container as ContainerType } from "@/actions/type";
 import { usePathname } from "next/navigation";
-import { Button, Checkbox, Container, Heading, HighlightSelected, Paragraph } from "./components";
+import { Button, Checkbox, Container, Heading, HighlightSelected, Paragraph, RadioGroup } from "./components";
 import { useAdminContext } from "../AdminContext/AdminContext";
 
 interface DisplayProps {
@@ -45,6 +45,8 @@ const Display: FC<DisplayProps> = ({ container, path = [] }) => {
         return <Button {...props} />;
       case "Checkbox":
         return <Checkbox {...props} />;
+      case "RadioGroup":
+        return <RadioGroup {...props} />;
       default:
         return (
           <div>

@@ -1,7 +1,7 @@
 import { RadioGroup, Radio, FormControlLabel } from "@mui/material";
 import { ChangeEvent, FC } from "react";
 
-interface Option {
+export interface Option {
   // Priority value → If value is undefined then use label as value
   readonly label?: string;
   readonly value?: any;

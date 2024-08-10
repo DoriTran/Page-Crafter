@@ -2,7 +2,6 @@
 
 import { FC, useEffect, useState } from "react";
 import { ApCheckbox } from "@/components";
-import { usePathname } from "next/navigation";
 import ComponentProps from "../type";
 
 interface CheckboxProps extends ComponentProps {
@@ -20,22 +19,18 @@ export const defaultCheckbox = {
 };
 
 const Checkbox: FC<CheckboxProps> = ({ checked, label, labelPlacement = "end", disabled }) => {
-  const pathname = usePathname();
-  // const [isChecked, setIsChecked] = useState<boolean | any[]>(checked as boolean);
-  // useEffect(() => {
-  //   setIsChecked(checked as boolean);
-  // }, [checked]);
-  const [isChecked, setIsChecked] = useState<boolean | any[]>(true as boolean);
+  const [isChecked, setIsChecked] = useState<boolean | any[]>(checked as boolean);
+  useEffect(() => {
+    setIsChecked(checked as boolean);
+  }, [checked]);
 
   return (
     <ApCheckbox
       checked={isChecked}
       setChecked={setIsChecked}
-      label="Lmao"
-      // {...(pathname !== "/admin" && { setChecked: setIsChecked })}
-      // label={label}
-      // labelPlacement={labelPlacement}
-      // disabled={disabled}
+      label={label}
+      labelPlacement={labelPlacement}
+      disabled={disabled}
     />
   );
 };

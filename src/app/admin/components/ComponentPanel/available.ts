@@ -26,7 +26,7 @@ const components: Component[] = [
   { type: "Paragraph", icon: faParagraph },
   { type: "Button", icon: faStop },
   { type: "Checkbox", icon: faCheckSquare },
-  { type: "Radio group", icon: faDotCircle },
+  { type: "RadioGroup", icon: faDotCircle },
   { type: "Select", icon: faCaretDown },
   { type: "Image", icon: faImage },
   { type: "InputField", icon: faPen },

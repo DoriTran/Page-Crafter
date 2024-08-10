@@ -49,7 +49,6 @@ const ApCheckbox: FC<ApCheckboxProps> = ({
   }, [checked]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, changeValue: boolean) => {
-    console.log("Alo");
     if (setChecked) {
       if (typeof checked === "boolean") {
         setChecked(!checked);
