@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { ForwardedRef, forwardRef, useMemo } from "react";
 import styles from "./TextInput.module.scss";
-import ClassNameProps from "../../_interface/ClassNameProps";
 
 interface TextInputProps {
   type: string;
@@ -28,7 +27,7 @@ interface TextInputProps {
   isCorrect?: boolean;
   isError?: boolean;
   style?: object;
-  className?: string | ClassNameProps;
+  className?: string;
 
   // The rest properties
   [key: string]: any;
@@ -88,7 +87,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           styles.input,
           isCorrect && styles.correct,
           isError && styles.error,
-          typeof className === "string" ? className : className?.input,
+          className,
           startAdornment && styles.inputWithStartAdornment,
           endAdornment && styles.inputWithEndAdornment,
         )}
